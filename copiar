@@ -1,27 +1,32 @@
+#!/bin/bash
+# Script simulador de copiar (copiar) - CORREGIDO
+
 if test $# -eq 2
- then
-   if test -f $1
-   then 
-      if test -r $1 && test -r $2
-      then
-       cp $1 $2
-      else 
-       echo " no tiene permisos de lectura "
-       echo " presione una tecla ......"
-       read enter1
-      fi
-   else
-    echo "No es un Archivo $1"
-    read enter1
-   if
- else
-  if test $# -1t 2
-   then
-     echo " faltan parámetros "
-     echo " cparch [nom_arch ir] [nom_arch de]|[nom_dir] "
-     echo " Presione una tecla ... "
-     read enter1
-   else
-     echo " Demasiados Parámetros ."
-  fi
- fi
+then
+    if test -f $1
+    then 
+        if test -r $1
+        then
+            cp $1 $2
+            echo "Archivo copiado exitosamente de $1 a $2"
+        else 
+            echo " no tiene permisos de lectura "
+            echo " presione una tecla ......"
+            read enter1
+        fi
+    else
+        echo "No es un Archivo $1"
+        read enter1
+    fi   # <--- CORRECCIÓN CLAVE: El 'if' de la línea 17 del documento debe ser 'fi'
+else
+    # CORRECCIÓN: El operador -1t se cambia por -lt (less than)
+    if test $# -lt 2
+    then
+        echo " faltan parámetros "
+        echo " cparch [nom_arch ir] [nom_arch de]|[nom_dir] "
+        echo " Presione una tecla ... "
+        read enter1
+    else
+        echo " Demasiados Parámetros ."
+    fi
+fi
