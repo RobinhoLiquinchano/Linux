@@ -1,0 +1,33 @@
+#!/bin/bash
+# Script simulador de copiar (cparch) - CORREGIDO
+
+if test $# -eq 2
+then
+    if test -f $1
+    then 
+        # Esta es la validación de permisos de lectura.
+        if test -r $1 && test -r $2
+        then
+            cp $1 $2
+            echo "Archivo copiado exitosamente de $1 a $2"
+        else 
+            echo " no tiene permisos de lectura "
+            echo " presione una tecla ......"
+            read enter1
+        fi
+    else
+        echo "No es un Archivo $1"
+        read enter1
+    fi   # <--- Cierre del bloque 'else' (corregido de 'if')
+else
+    # CORRECCIÓN: Usamos -lt (less than) en lugar de -1t
+    if test $# -lt 2
+    then
+        echo " faltan parámetros "
+        echo " cparch [nom_arch ir] [nom_arch de]|[nom_dir] "
+        echo " Presione una tecla ... "
+        read enter1
+    else
+        echo " Demasiados Parámetros ."
+    fi
+fi
